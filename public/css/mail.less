@@ -1,0 +1,98 @@
+section#mail {
+  padding: 1em;
+  background-color: #fafafa;
+  width: 90%;
+  min-width: 62.5em;
+  margin: 1em auto;
+  div#mail_header {
+    width: 100%;
+    margin-bottom: .2em;
+    table {
+      position: relative;
+      width: 100%;
+      td.td_send {
+        width: 5em;
+        vertical-align: top;
+        button {
+          width: 85%;
+          height: 7.7em;
+          font-size: .8em;
+        }
+      }
+      td.td_label {
+        width: 5em;
+        button {
+          font-size: .8em;
+          width: 90%;
+          text-align: center;
+          vertical-align: middle;
+        }
+        label {
+          font-size: .8em;
+          width: 90%;
+          vertical-align: top;
+          text-align: left;
+        }
+      }
+      select#select_release {
+        display: inline;
+        width: 12.3%;
+      }
+      select#select_domain {
+        display: inline;
+        width: 11.6%;
+      }
+      select#select_for_date {
+        display: inline;
+        width: 15.5%;
+
+      }
+      input#input_mail_subject {
+        display: inline;
+        width: 58.8%;
+
+      }
+    }
+  }
+  div#editor {
+    width: 100%;
+    overflow: scroll;
+  }
+  div.note-editor {
+    background-color: #fff;
+
+  }
+  div#select_platform {
+    margin: .2em 0;
+    width: 100%;
+    div#input_platform {
+      padding: .5em;
+      width: 100%;
+      border: solid .1em #ccc;
+      border-radius: .25em;
+      background-color: #fff; 
+      span.label {
+        border-radius: .25em .8em .8em .25em;
+        display: inline-block;
+        margin: .2em;
+        padding: .5em;
+        font-size: 1em;
+        background-color: #33447A;
+        span.platform_remove {
+          margin-left: .8em;
+          margin-right: .3em;
+          cursor: pointer;
+        }
+      }
+      span#span_add_platform {
+        display: inline-block;
+        cursor: pointer;
+      }
+      .select {
+        width: auto;
+        display: inline-block;
+        margin: 0 .2em;
+      }
+    }
+  }
+}

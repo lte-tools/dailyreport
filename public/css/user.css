@@ -1,0 +1,133 @@
+html body nav {
+  width: 90%;
+  margin: 0 auto;
+}
+html body nav span#welcome {
+  display: block;
+  padding-top: 2.5em;
+  padding-right: 1.5em;
+  font-size: .8em;
+}
+html body section {
+  width: 80%;
+  min-width: 58em;
+  margin: .5em auto;
+  text-align: center;
+}
+html body section .panel-heading {
+  padding-left: 2em;
+  line-height: 1.5;
+  text-align: left;
+  background-color: #eee;
+}
+html body section#create_report, #received_list {
+  margin-top: 5em;
+}
+html body section#create_report .btn {
+  display: inline-block;
+  margin: .5em 1em;
+  width: 15em;
+  height: 15em;
+  white-space: normal;
+  vertical-align: middle;
+  padding-top: 5.5em;
+}
+html body section#create_report .btn .span_cr {
+  display: block;
+  font-size: 0.9em;
+}
+html body section#create_report .btn .span_us {
+  display: block;
+  font-size: 1.3em;
+}
+html body section#sent_list .sent_list_item, #received_list .received_list_item, #unsent_list .unsent_list_item {
+  position: relative;
+  list-style: none;
+  text-align: left;
+}
+html body section#received_list .received_list_item{
+  position: relative;
+  list-style: none;
+  text-align: left; 
+}
+html body section#received_list .received_list_item .item_from{
+  display: inline-block;
+  width: 13%;
+}
+html body section#received_list .received_list_item .item_for_date{
+  display: inline-block;
+  width:13%;
+}
+html body section#received_list .received_list_item .item_release{
+  display:inline-block;
+  width:10%;
+}
+html body section#received_list .received_list_item .item_domain{
+  display:inline-block;
+  width:10%;
+}
+html body section#received_list .received_list_item .item_platform{
+  display: inline-block;
+  width: 15%;
+}
+html body section#received_list .received_list_item .item_subject{
+  display: inline-block;
+  width: 35%; 
+  text-align: center;
+}
+html body section#sent_list .sent_list_item .item_to {
+  display: inline-block;
+  width: 26%;
+}
+html body section#sent_list .sent_list_item .item_for_date {
+  display: inline-block;
+  width: 11%;
+}
+html body section#sent_list .sent_list_item .item_release {
+  display: inline-block;
+  width: 9%;
+}
+html body section#sent_list .sent_list_item .item_domain {
+  display: inline-block;
+  width: 8%;
+}
+html body section#sent_list .sent_list_item .item_platform {
+  display: inline-block;
+  width: 15%;
+}
+html body section#sent_list .sent_list_item .item_subject {
+  display: inline-block;
+  width: 25%;
+}
+html body section#unsent_list .unsent_list_item .item_email {
+  display: inline-block;
+  width: 40%;
+}
+html body section#unsent_list .unsent_list_item .item_for_date {
+  display: inline-block;
+  width: 18%;
+}
+html body section#unsent_list .unsent_list_item .item_rel {
+  display: inline-block;
+  width: 12%;
+}
+html body section#unsent_list .unsent_list_item .item_domain {
+  display: inline-block;
+  width: 12%;
+}
+html body section#unsent_list .unsent_list_item .item_name {
+  display: inline-block;
+  width: 30%;
+}
+html body section#unsent_list .unsent_list_item .item_prime {
+  display: inline-block;
+  width: 25%;
+
+}
+html body section#unsent_list .unsent_list_item .item_subject {
+  display: inline-block;
+  width: 25%;
+}
+html body section #div_add_more .label-info{
+  cursor: pointer;
+}

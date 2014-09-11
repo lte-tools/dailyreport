@@ -1,0 +1,22 @@
+body {
+  font-family: 'Verdana';
+}
+div#header {
+  background-image: linear-gradient(to bottom, #563d7c 0, #6f5499 100%);
+  color: #fff;
+  height: 15em;
+  padding: 2em;
+}
+div#header h1 {
+  margin-bottom: .9em;
+}
+section {
+  width: 90%;
+  margin: 0 auto;
+}
+section h3 {
+  font-size: 1.5em;
+}
+section p {
+  font-size: .9em;
+}

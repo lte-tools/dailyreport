@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome </title>
+  <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+  <meta charset='utf-8' />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Cache-Control" content="no-cache,must-revalidate" />
+  <meta http-equiv="Expires" content="0" />
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <link rel="stylesheet" href="http://172.24.186.245/jslib/bootstrap/bootstrap3.0.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://172.24.186.245/jslib/bootstrap/bootstrap3.0.3/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/user.css" >
+  <link rel="stylesheet" href="css/datepicker.css">
+  
+  <!--[if lt IE 9]>
+    <script src="//172.24.186.245/jslib/bootstrap/bootstrap3.0.3/assets/js/html5shiv.js"></script>
+    <script src="//172.24.186.245/jslib/bootstrap/bootstrap3.0.3/assets/js/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Daily Report</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Recieved</a></li>
+        <!--li><a href="#">Sent</a></li>
+        <li><a href="#">Recieved</a></li>
+        <li><a href="/doc">Help</a></li-->
+        <!--
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Using default template</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Using last time report</a></li>
+          </ul>
+        </li>
+        -->
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><span id="welcome">Welcome <%=user.nick_name%>! Not <a href="/login?sign_method=change_user&ref=/"><%=user.nick_name%>?</a></span></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+
+  <section id="received_list" class="panel panel-default">
+    <div class="panel-heading">
+      <lable >received List</label>
+      <input id="datepicker1" name="datepicker1" class="form-control" type="text" style="width:160px;display:inline-block;margin-left:550px" />
+    </div>
+    <div id="div_received_list"></div>
+    <div id="div_add_more">
+      <span class="label label-info" id="span_add_email"> + 
+      </span>
+      <span class="label label-info" id="span_delete_email" style="display:none"> -
+      </span>      
+    </div>    
+  </section>
+  <section id="unsent_list" class="panel panel-default">
+    <div class="panel-heading">platform--unsent email</div>
+    <div id="div_unsent_list"></div>  
+  </section>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="modal-dialog" style="display: inline-block; width: auto; min-width:500px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Mail</h4>
+      </div>
+      <div class="modal-body">
+        <p id="email">Loading...</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+<script data-main="/js/manager.main" src='//172.24.186.245/jslib/requirejs/require-2.1.10.min.js'>
+  
+</script>
