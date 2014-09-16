@@ -39,9 +39,7 @@ router.get(/\/editor(.*)/, function(req, res) {
 });
 
 router.get('/', function(req, res) {
-
-
-  var username=req.session.user.email;
+  var username = req.session.user.email;
   Auth
     .findOne({'name':username})
     .exec(function(err, doc){
