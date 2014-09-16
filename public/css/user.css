@@ -56,48 +56,48 @@ html body section#received_list .received_list_item .item_from{
 }
 html body section#received_list .received_list_item .item_for_date{
   display: inline-block;
-  width:13%;
+  width:11%;
 }
 html body section#received_list .received_list_item .item_release{
   display:inline-block;
-  width:10%;
+  width:8%;
 }
 html body section#received_list .received_list_item .item_domain{
   display:inline-block;
-  width:10%;
+  width:8%;
 }
 html body section#received_list .received_list_item .item_platform{
   display: inline-block;
-  width: 15%;
+  width: 17%;
 }
 html body section#received_list .received_list_item .item_subject{
   display: inline-block;
-  width: 35%; 
+  width: 40%; 
   text-align: center;
 }
 html body section#sent_list .sent_list_item .item_to {
   display: inline-block;
-  width: 26%;
+  width: 0%;
 }
 html body section#sent_list .sent_list_item .item_for_date {
   display: inline-block;
-  width: 11%;
+  width: 15%;
 }
 html body section#sent_list .sent_list_item .item_release {
   display: inline-block;
-  width: 9%;
+  width: 12%;
 }
 html body section#sent_list .sent_list_item .item_domain {
   display: inline-block;
-  width: 8%;
+  width: 12%;
 }
 html body section#sent_list .sent_list_item .item_platform {
   display: inline-block;
-  width: 15%;
+  width: 25%;
 }
 html body section#sent_list .sent_list_item .item_subject {
   display: inline-block;
-  width: 25%;
+  width: 32%;
 }
 html body section#unsent_list .unsent_list_item .item_email {
   display: inline-block;
@@ -105,11 +105,11 @@ html body section#unsent_list .unsent_list_item .item_email {
 }
 html body section#unsent_list .unsent_list_item .item_for_date {
   display: inline-block;
-  width: 18%;
+  width: 20%;
 }
 html body section#unsent_list .unsent_list_item .item_rel {
   display: inline-block;
-  width: 12%;
+  width: 15%;
 }
 html body section#unsent_list .unsent_list_item .item_domain {
   display: inline-block;
@@ -117,11 +117,11 @@ html body section#unsent_list .unsent_list_item .item_domain {
 }
 html body section#unsent_list .unsent_list_item .item_name {
   display: inline-block;
-  width: 30%;
+  width: 31%;
 }
 html body section#unsent_list .unsent_list_item .item_prime {
   display: inline-block;
-  width: 25%;
+  width: 21%;
 
 }
 html body section#unsent_list .unsent_list_item .item_subject {

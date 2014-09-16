@@ -17,7 +17,7 @@ exports.get_user_name=function(req, res){
     	return;
     }
  
-	var username= new RegExp(req.session.user.nick_name, 'i');
+	var username= new RegExp(req.session.user.email, 'i');
 
 	Auth
 	  .findOne({'name':username})

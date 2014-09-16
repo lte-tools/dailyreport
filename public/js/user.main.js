@@ -6,7 +6,8 @@ require(['requirejs.config'] , function() {
           elem: {
             base_dom: $('#div_sent_list'),
             base_show: $('#email'),
-            base_modal: $('#myModal')
+            base_modal: $('#myModal'),
+            base_label: $('#myModalLabel')
           }
         });
       });

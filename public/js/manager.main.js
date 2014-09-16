@@ -9,7 +9,8 @@ require(['requirejs.config'] , function() {
             unsent_dom: $('#div_unsent_list'),
             date1_dom: $('#datepicker1'),
 	          base_show:$('#email'),
-            base_modal: $('#myModal')
+            base_modal: $('#myModal'),
+            base_label: $('#myModalLabel')
           }
         });
       });

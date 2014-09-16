@@ -18,7 +18,6 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
         for (var i = mails.length - 1; i >= 0; i--) {
           __elem.base_dom.append(
             $('<li class="sent_list_item list-group-item"></li>').append(
-              $('<span class="item_to"></span>').html(mails[i].mail_header.to),
               $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
               $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
               $('<span class="item_domain"></span>').html(mails[i].mail_info.domain || ''),
@@ -32,11 +31,8 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
                       alert(err);
                       return;
                     }
-                    changMode(mails[j].mail_body);
+                    changMode(mails[j].mail_body,mails[j].mail_header.to,mails[j].mail_header.cc,mails[j].mail_header.subject);
                   })
-                  __elem.base_show.html('Loading......');
-                  document.getElementById('modal-dialog').style.left = $(window).width()/3 +'px';
-                  __elem.base_modal.modal('show');
                 })
               )
             )
@@ -47,12 +43,25 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
       })
     }
 
-    var changMode = function changeMode(mailBody){
+    var changMode = function changeMode(mailBody,mailToList,mailCcList,mailSubject){
+      var mailTo = mailHeader(mailToList);
+      var mailCc = mailHeader(mailCcList);
+
+      __elem.base_label.html('To :'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailTo +'<br>' + 'Cc :' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailCc + '<br>' + 'Subject :' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + mailSubject);
       __elem.base_show.html(mailBody);
-      var windowWidth = $(window).width();
-      var modalWidth = document.getElementById('modal-dialog').offsetWidth;
-      modalLeft = (windowWidth - modalWidth)/2 + 'px';
-      document.getElementById('modal-dialog').style.left=modalLeft;  
+      __elem.base_modal.modal('show');
+    }
+
+    var mailHeader =  function mailHeader(mailItemList)
+    { 
+      mailItemList = mailItemList + ',';
+      var mailItem_list = String(mailItemList).split(',');
+      var mailItem = '';
+      for(var i=0;i<mailItem_list.length-1;i++) 
+          mailItem = mailItem + mailItem_list[i].split("@")[0] + "&nbsp,&nbsp";
+      var m = mailItem.length - 6 ;
+      mailItem = mailItem.substring(0,m);
+      return mailItem;
     }
 
   });

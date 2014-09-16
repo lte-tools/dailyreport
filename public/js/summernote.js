@@ -753,7 +753,7 @@
         },
         progress: {
           bar: 'Progress',
-          insert: 'Save',
+          insert: 'Create bar',
           unlink: 'Unlink',
           edit: 'Edit',
           url: 'Percentage(%)',
@@ -2221,10 +2221,17 @@
 
         $progressDialog.one('shown.bs.modal', function (event) {
           event.stopPropagation();
-
-
+          if($progressDialog.find('.form-group').find('.numtip').val()!=''){
+            $progressDialog.find('.form-group').append($('<em></em>').addClass('numtip').html('Please input number range from 0 to 100 only!'));
+          }
           $progressUrl.keyup(function () {
-            toggleBtn($progressBtn, $progressUrl.val());
+            if(!isNaN($progressUrl.val()) && $progressUrl.val()>=0 && $progressUrl.val()<=100){
+               toggleBtn($progressBtn, $progressUrl.val());
+                 }else{
+              $progressBtn.toggleClass('disabled', false);
+              $progressBtn.attr('disabled', '0');
+              
+            };
             // display same link on `Text to display` input
             // when create a new link
           }).val(linkInfo.url).trigger('focus');
@@ -2238,6 +2245,8 @@
           });
         }).one('hidden.bs.modal', function (event) {
           event.stopPropagation();
+          $progressBtn.toggleClass('disabled', false);
+          $progressBtn.attr('disabled', '0');
 
           $editable.focus();
           $progressUrl.off('keyup');
