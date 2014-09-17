@@ -35,7 +35,7 @@ exports.get_sent_list = function(req, res) {
   }
   var email = new RegExp(req.session.user.email, 'i');
   Mail
-    .find({'mail_header.from': email})
+    .find({'mail_header.from': email}, 'mail_info mail_header _id')
     .sort('mail_info.for_date')
     .exec(function(err, docs) {
       if (err) {
