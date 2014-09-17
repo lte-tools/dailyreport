@@ -29,7 +29,6 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
                     .click(function(){
                       show_mail(mail._id);
                     })
-                  })
                 )
               )
             ).addClass('list-group');
@@ -43,10 +42,10 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
     }
 
     var show_mail = function(_id) {
-      elem.base_show.html('');
+      __elem.base_show.html('');
       __Mail.get_by_id(_id, function(err, mail) {
-        elem.base_show.html(mail.mail_body);
-        elem.base_modal.modal('show');
+        __elem.base_show.html(mail.mail_body);
+        __elem.base_modal.modal('show');
       });
     };
 
