@@ -21,7 +21,7 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
               $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
               $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
               $('<span class="item_domain"></span>').html(mails[i].mail_info.domain || ''),
-              $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms || ''),
+              $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms.join(', ') || ''),
               $('<span class="item_subject"></span>').html(mails[i].mail_header.subject),
               $('<span class="item_opt"></span>').append(
                 $('<span class="glyphicon glyphicon-search" data-toggle="modal"></span>').attr("id",function(){return i}).click(function(){
@@ -44,10 +44,7 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
     }
 
     var changMode = function changeMode(mailBody,mailToList,mailCcList,mailSubject){
-      var mailTo = mailHeader(mailToList);
-      var mailCc = mailHeader(mailCcList);
 
-      __elem.base_label.html('To :'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailTo +'<br>' + 'Cc :' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailCc + '<br>' + 'Subject :' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + mailSubject);
       __elem.base_show.html(mailBody);
       __elem.base_modal.modal('show');
     }
