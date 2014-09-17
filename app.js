@@ -11,9 +11,8 @@ var MongoStore = require('connect-mongo')(session);
 
 var route = require('./route/index');
 var config = require('./config')
-, platform = require('./route/platform')
-  , mail = require('./route/mail')
-  , auth = require('./route/auth');
+  , platform = require('./route/platform')
+  , mail = require('./route/mail');
 
 var app = express();
 
@@ -46,7 +45,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/mail', mail);
-app.use('/auth', auth);
 app.use('/platform', platform);
 app.use('/', route);
 

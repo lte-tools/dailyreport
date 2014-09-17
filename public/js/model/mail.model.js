@@ -29,16 +29,31 @@ define(['util/conn'], function(__c) {
     }, this);
   }
 
-  Mail.get_received_list = function(anddothis, object) {
-    __c.send_to_server('/mail/get_received_list',{}, function(r) {
+  Mail.get_received_list = function(date, anddothis, object) {
+    __c.send_to_server('/mail/get_received_list',{
+      date: date
+    }, function(r) {
       if (r.result != 'ok') {
-        anddothis.call(object, r.data, null, r.auth);
+        anddothis.call(object, r.data, null);
       }
       else {
-        anddothis.call(object, null, r.data, r.auth);
+        anddothis.call(object, null, r.data);
       }      
     }, this)
   }
+
+  Mail.get_by_id = function(id, anddothis, object) {
+    __c.send_to_server('/mail/get_by_id', {
+      id: id
+    }, function(r) {
+      if (r.result != 'ok') {
+        anddothis.call(object, r.data, null);
+      }
+      else {
+        anddothis.call(object, null, r.data);
+      }
+    }, this);
+  };
 
   Mail.get_last = function(anddothis, object) {
     __c.send_to_server('/mail/get_last', {}, function(r) {

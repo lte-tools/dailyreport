@@ -3,6 +3,7 @@ var connection = require('./db.model').connection
   , mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+  _id: mongoose.Schema.ObjectId,
   mail_header: {
     from: String,
     to: [String],
@@ -21,6 +22,12 @@ var schema = new mongoose.Schema({
 })
 
 var Mail = connection.model('mails', schema);
+
+exports.get_by_id = function(_id, next) {
+  Mail.findOne({_id: _id}, function(err, mail) {
+    next(err, mail);
+  });
+}
 
 exports.get_sent_list = function(req, res) {
   if (!req.session.user) {
@@ -41,12 +48,34 @@ exports.get_sent_list = function(req, res) {
     });
 }
 
-exports.get_received_list = function(req, res) {
-  if(!req.session.user) {
-    res.send(JSON.stringify({result: 'error', data: 'please login first'}));
+exports.get_received_list = function(user, date, next) {
+  if(!user) {
+    next(new Error('no user'));
     return;
   }
-  var email = new RegExp(req.session.user.email, 'i');
+  var email = new RegExp(user.email, 'i'),
+      release = user.release || [],
+      domain = user.domain || [];
+
+  var query = Mail.find({'mail_info.for_date': new Date(date)}, 'mail_info mail_header _id');
+  if (release.length) {
+    query.in('mail_info.release', release);
+  }
+  if (domain.length) {
+    query.in('mail_info.domain', domain);
+  }
+  query.sort('mail_info.for_date');
+  query.exec(function(err, mails) {
+    if (err) {
+      next(err);
+    }
+    else {
+      next(null, mails);
+    }
+  });
+};
+
+  /*
 
   if(!(req.session.auth instanceof Array)){
   Mail
@@ -76,6 +105,7 @@ exports.get_received_list = function(req, res) {
     });}
 
 }
+*/
 
 exports.get_last = function(req, res) {
   if (!req.session.user) {

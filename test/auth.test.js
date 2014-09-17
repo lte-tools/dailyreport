@@ -11,7 +11,7 @@ exports.test_get_user = function(test) {
         test.ifError(err);
         user.get_user('t@t.c', function(err, doc) {
           test.ifError(err);
-          test.equal(doc.name, 't@t.c');
+          test.equal(doc.email, 't@t.c');
           test.equal(doc.identity, 'user');
           test.equal(doc.release, 'null');
           test.done();   
@@ -19,7 +19,7 @@ exports.test_get_user = function(test) {
       });
     }
     else {
-      test.equal(doc.name, 't@t.c');
+      test.equal(doc.email, 't@t.c');
       test.equal(doc.identity, 'user');
       test.equal(doc.release, 'null');
       test.done();

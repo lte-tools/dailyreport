@@ -41,5 +41,17 @@ define(['util/conn'], function(__c) {
     
   };
 
+  Platform.get_manage_platform = function(anddothis, object) {
+    __c.send_to_server('/platform/get_manage_platform', { 
+    }, function(r) {
+      if (r.result != 'ok') {
+        anddothis.call(object, r.data, r.rel);      
+      }
+      else {
+        anddothis.call(object, null, r.data, r.rel);
+      }
+    }, this);
+  };
+
   return Platform;
 });

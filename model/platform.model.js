@@ -1,6 +1,6 @@
 var episode_api = require('./api.model')
 
-module.exports.get_all_name = function(req, res) {
+exports.get_all_name = function(req, res) {
   episode_api.connect('/platform/get_all_name', {}, function(error, body) {
     if (error) {
       res.send(JSON.stringify({
@@ -17,7 +17,7 @@ module.exports.get_all_name = function(req, res) {
   });
 };
 
-module.exports.get_all_name_by_email = function(req, res) {
+exports.get_all_name_by_email = function(req, res) {
   if (!req.session.user) {
     res.send(JSON.stringify({result: 'error', data: 'please login first'}));
     return;
@@ -41,7 +41,20 @@ module.exports.get_all_name_by_email = function(req, res) {
   });
 };
 
-module.exports.get_all_config = function(req, res) {
+exports.get_manage_platform = function(release, domain, next) {
+  episode_api.connect('/platform/get_manage_platform', {
+    release: release,
+    domain: domain
+  }, function(err, body) {
+    if (err) {
+      next(err);
+      return;
+    }
+    next(null, JSON.parse(body).data)
+  })
+}
+
+exports.get_all_config = function(req, res) {
   episode_api.connect('/platform/get_all_config',{},function(error, body){
     if (error) {
       res.send(JSON.stringify({

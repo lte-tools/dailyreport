@@ -18,15 +18,21 @@ exports.callback = function(req, res) {
     }));
   }
   var user = JSON.parse(req.param('user_str'));
-  callback(user, req, res);
-  if (!req.session.ref) {
-    res.redirect(config.client['DEFAULT_REF']);
-  }
-  else {
-    res.redirect(req.session.ref);
-  }
-  
-}
+  callback(user, req, res, function(err) {
+    if (err) {
+      res.send(JSON.stringify({
+        result: 'error',
+        message: err
+      }));
+    }
+    if (!req.session.ref) {
+      res.redirect(config.client['DEFAULT_REF']);
+    }
+    else {
+      res.redirect(req.session.ref);
+    }
+  });
+};
 
 exports.prepare = function(req, res) {
   //console.log(req.headers);
@@ -42,7 +48,6 @@ exports.prepare = function(req, res) {
   req.session.sso_key = (Math.floor((Math.random() * 9999) + 1000)).toString();
   var uri = 'http://' + req.headers['host'] + req.path;
   var redirect_path = config.server['url'] + '/sso/do?' + sign_method_str + 'key=' + req.session.sso_key + '&ref=' + uri + '&app_id=' + config.client['APP_ID'];
-  console.log(redirect_path);
   res.redirect(redirect_path);
 
 }

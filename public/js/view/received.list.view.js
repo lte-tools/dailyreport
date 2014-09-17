@@ -1,313 +1,73 @@
-define(['control/event.center', 'model/mail.model','model/platform.model','config','util/date.format',], function(__Event, __Mail, __Platform, __Config) {
-
+define(['control/event.center', 'model/mail.model', 'model/platform.model', 'util/date.format'], function(__Event, __Mail, __Platform) {
   return new (function(){
-    var __elem;
-    var __option;
-    var __secelem;
-    var today_mail=[];
-    var today_domain_name=[];
-    var toolList = new Array();
-    toolList=__Config.TOOL_List().concat();
-
-
-    this.init = function(opt,secopt) {
-      var toDate=new Date().format();
-
-      __option = $.extend({}, __option, opt);
-      __elem = __option.elem;
-      __secelem = __elem.add_dom;
-      __fddom = __elem.date1_dom;
-
-      __fddom.val(toDate);
-      __fddom.datepicker({
-        format : 'yyyy-mm-dd'
-      }).on('changeDate', function(){
-        if(__secelem.add_emails.css('display')=='none'){
-            __secelem.add_emails.css('display','inline');
-            __secelem.delete_emails.css('display','none');
-        }
-
-        update(this.value)
-
-        
-      });           
-
-      update(toDate);
-      __secelem.add_emails = __secelem.find('span#span_add_email');
-      __secelem.delete_emails = __secelem.find('span#span_delete_email');     
+    var elem;
+    this.init = function(opt) {
+      elem = opt.elem;
+      this.update();
     }
 
-    var update = function(dateVal) {
-      __Mail.get_received_list(function(err, mails, auth) {
-        if (err)  {
-          alert(err);
-          return;
-        }
-        __elem.base_dom.html('');
-        var today=dateVal;
-  
-   
+    var update_received = function(_date) {
+      __Mail.get_received_list(_date, function(err, mails) {
+        var platform_sent = [];
         for (var i = mails.length - 1; i >= 0; i--) {
-          var email_date=(new Date(mails[i].mail_info.for_date)).format();
-          var k=0;
-          if(email_date==today){
-            if(auth.indexOf('LR')!=-1){
-              for(var j=0;j<mails[i].mail_info.platforms.length;j++) {
-              __elem.base_dom.append(
-                $('<li class="received_list_item list-group-item"></li>').append(
-                  $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms[j]|| ''),
-                  $('<span class="item_from"></span>').html(mails[i].mail_header.from.split("@")[0]),
-                  $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
-                  $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
-                  $('<span class="item_domain"></span>').html(mails[i].mail_info.domain.toUpperCase() || ''),
-                  $('<span class="item_subject"></span>').html(mails[i].mail_header.subject),
-                  $('<span class="item_opt"></span>').append(
-                    $('<span class="glyphicon glyphicon-search"  data-toggle="modal"</span>').attr("id",function(){return i}).click(function(){
-                      var j=$(this).attr('id');
-                      __Mail.get_received_list(function(err, mails){
-                        if (err){
-                          alert(err);
-                          return;
-                        }
-                      changMode(mails[j].mail_body,mails[j].mail_header.from,mails[j].mail_header.to,mails[j].mail_header.cc,mails[j].mail_header.subject);
-                      });       
+          (function(mail) {
+            var platforms = mail.mail_info.platforms;
+            platform_sent = platform_sent.concat(platforms);
+            elem.base_dom.append(
+              $('<li class="received_list_item list-group-item"></li>').append(
+                $('<span class="item_from"></span>').html(mail.mail_header.from.split("@")[0]),
+                $('<span class="item_release"></span>').html(mail.mail_info.release || ''),
+                $('<span class="item_domain"></span>').html(mail.mail_info.domain || ''),
+                $('<span class="item_subject"></span>').html(mail.mail_header.subject),
+                $('<span class="item_opt"></span>').append(
+                  $('<span class="glyphicon glyphicon-search"  data-toggle="modal"</span>')
+                    .click(function() {
+                      show_mail(mail._id);
                     })
-                  )
                 )
-              ).addClass('list-group'); 
-              today_mail.push(mails[i].mail_info.platforms[j].toString());
-              } 
-         
-            }
-            else{
-              __elem.base_dom.append(
-                $('<li class="received_list_item list-group-item"></li>').append(
-                  $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms|| ''),
-                  $('<span class="item_from"></span>').html(mails[i].mail_header.from.split("@")[0]),
-                  $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
-                  $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
-                  $('<span class="item_domain"></span>').html(mails[i].mail_info.domain.toUpperCase() || ''),
-                  $('<span class="item_subject"></span>').html(mails[i].mail_header.subject),
-                  $('<span class="item_opt"></span>').append(
-                    $('<span class="glyphicon glyphicon-search"  data-toggle="modal"></span>').attr("id",function(){return i}).click(function(){
-                      var j=$(this).attr('id');
-                      __Mail.get_received_list(function(err, mails){
-                        if (err){
-                          alert(err);
-                          return;
-                        }
-                      changMode(mails[j].mail_body,mails[j].mail_header.from,mails[j].mail_header.to,mails[j].mail_header.cc,mails[j].mail_header.subject);
-                      }); 
-                    })
-                  )
-                )
-              ).addClass('list-group'); 
-            } 
-           
-            today_domain_name.push(mails[i].mail_header.from.toString());        
-          };
+              )
+            ).addClass('list-group'); 
+          })(mails[i]);
         };
-
-
-        __secelem.add_emails.unbind('click').click(function(){
-
-        if(__elem.base_dom.children().length!=0){
-           __elem.base_dom.empty();
-          }          
-          for (var i = mails.length - 1; i >= 0; i--) {
-            var email_date=(new Date(mails[i].mail_info.for_date)).format();
-            
-              __elem.base_dom.append(
-                $('<li class="received_list_item list-group-item"></li>').append(
-                  $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms|| ''),
-                  $('<span class="item_from"></span>').html(mails[i].mail_header.from.split("@")[0]),
-                  $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
-                  $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
-                  $('<span class="item_domain"></span>').html(mails[i].mail_info.domain.toUpperCase() || ''),
-                  $('<span class="item_subject"></span>').html(mails[i].mail_header.subject),
-                  $('<span class="item_opt"></span>').append(
-                    $('<span class="glyphicon glyphicon-search"  data-toggle="modal"></span>').attr("id",function(){return i}).click(function(){
-                      var j=$(this).attr('id');
-                      __Mail.get_received_list(function(err, mails){
-                        if (err){
-                          alert(err);
-                          return;
-                       }
-                      changMode(mails[j].mail_body,mails[j].mail_header.from,mails[j].mail_header.to,mails[j].mail_header.cc,mails[j].mail_header.subject);
-                      });
-                    })   
-                  )
-                )
-              ).addClass('list-group');          
-            
-          };   
-
-          __secelem.add_emails.css('display','none');
-          __secelem.delete_emails.css('display','inline-block');
-
-
-        });
-          
-      __secelem.delete_emails.unbind('click').click(function(){
-    
-        __elem.base_dom.empty();
-        for (var i = mails.length - 1; i >= 0; i--) {
-          var email_date=(new Date(mails[i].mail_info.for_date)).format();
-          var k=0;
-          if(email_date==today){
-            if(auth.indexOf('LR')!=-1){
-              for(var j=0;j<mails[i].mail_info.platforms.length;j++) {
-              __elem.base_dom.append(
-                $('<li class="received_list_item list-group-item"></li>').append(
-                  $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms[j]|| ''),
-                  $('<span class="item_from"></span>').html(mails[i].mail_header.from.split("@")[0]),
-                  $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
-                  $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
-                  $('<span class="item_domain"></span>').html(mails[i].mail_info.domain.toUpperCase() || ''),
-                  $('<span class="item_subject"></span>').html(mails[i].mail_header.subject),
-                  $('<span class="item_opt"></span>').append(
-                    $('<span class="glyphicon glyphicon-search"  data-toggle="modal"></span>').attr("id",function(){return i}).click(function(){
-                      var j=$(this).attr('id');
-                      __Mail.get_received_list(function(err, mails){
-                        if (err){
-                          alert(err);
-                          return;
-                        }
-                      changMode(mails[j].mail_body,mails[j].mail_header.from,mails[j].mail_header.to,mails[j].mail_header.cc,mails[j].mail_header.subject);
-                      });
-                    })
-                  )
-                )
-              ).addClass('list-group'); 
-              today_mail.push(mails[i].mail_info.platforms[j].toString());
-              } 
-         
-            }
-            else{
-              __elem.base_dom.append(
-                $('<li class="received_list_item list-group-item"></li>').append(
-                  $('<span class="item_platform"></span>').html(mails[i].mail_info.platforms|| ''),
-                  $('<span class="item_from"></span>').html(mails[i].mail_header.from.split("@")[0]),
-                  $('<span class="item_for_date"></span>').html((new Date(mails[i].mail_info.for_date)).format()),
-                  $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
-                  $('<span class="item_domain"></span>').html(mails[i].mail_info.domain.toUpperCase() || ''),
-                  $('<span class="item_subject"></span>').html(mails[i].mail_header.subject),
-                  $('<span class="item_opt"></span>').append(
-                    $('<span class="glyphicon glyphicon-search"  data-toggle="modal"></span>').attr("id",function(){return i}).click(function(){
-                      var j=$(this).attr('id');
-                      __Mail.get_received_list(function(err, mails){
-                        if (err){
-                          alert(err);
-                          return;
-                       }
-                      changMode(mails[j].mail_body,mails[j].mail_header.from,mails[j].mail_header.to,mails[j].mail_header.cc,mails[j].mail_header.subject);
-                      });
-                    })   
-                  )
-                )
-              ).addClass('list-group'); 
-            } 
-           
-            today_domain_name.push(mails[i].mail_header.from.toString());        
-          };
-        };        
-
-        __secelem.add_emails.css('display','inline-block');
-        __secelem.delete_emails.css('display','none');
-
-      });        
-        
-       
-
-        __Platform.get_all_config(function(error, all_config, relea){
-          if (error) {
-            return;
-          }   
-        if(__elem.unsent_dom.children().length!=0){
-            __elem.unsent_dom.empty();
-
-          }          
-
-          if(!(relea instanceof Array)){
-
-            for (var i in all_config) {
-              if(all_config[i].name == '') continue;
-              var ind = $.inArray(all_config[i].name,today_mail);
-              if(ind==(-1)&&(all_config[i].rel.indexOf(relea)!=(-1))){
-                __elem.unsent_dom.append(
-                  $('<li class="unsent_list_item list-group-item"></li>').append(
-                    $('<span class="item_name"></span>').html(all_config[i].name|| ''),
-                    $('<span class="item_prime"></span>').html(all_config[i].prime),
-                    $('<span class="item_for_date"></span>').html(today),
-                    $('<span class="item_rel"></span>').html(all_config[i].rel || ''),
-                    $('<span class="item_domain"></span>').html(all_config[i].domain.toUpperCase() || ''),
-                  )                
-                ).addClass('list-group');                 
-              }
-            }
-          }
-
-          else if(relea.indexOf('TOOL')!=-1){
-            for(var i=0; i < toolList.length; i++){
-              var ind = $.inArray(toolList[i],today_domain_name)
-              if(ind==-1){
-                __elem.unsent_dom.append(
-                  $('<li class="unsent_list_item list-group-item"></li>').append(
-                    $('<span class="item_name"></span>').html(all_config[i].name|| '')
-                    $('<span class="item_email"></span>').html(toolList[i].split("@")[0]),
-                    $('<span class="item_for_date"></span>').html(today),
-                    $('<span class="item_rel"></span>').html(' '),
-                    $('<span class="item_domain"></span>').html('TOOL'),
-                    $('<span class="item_name"></span>').html(' ')
-                  )                
-                ).addClass('list-group');
-              }
-            }
-          }
-
-          else{ 
-          
-            for (var i in all_config) {
-              if(all_config[i].domain == '') continue;
-              var ind = $.inArray(all_config[i].email,today_domain_name);
-              
-              if(ind==(-1)&&($.inArray(all_config[i].domain.toUpperCase(),relea)!=(-1))){
-                __elem.unsent_dom.append(
-                  $('<li class="unsent_list_item list-group-item"></li>').append(
-                    $('<span class="item_prime"></span>').html(all_config[i].prime),
-                    $('<span class="item_for_date"></span>').html(today),
-                    $('<span class="item_rel"></span>').html(all_config[i].rel || ''),
-                    $('<span class="item_domain"></span>').html(all_config[i].domain.toUpperCase()|| '')
-                    
-                  )                
-                ).addClass('list-group');                
-              }
-            }
-          }
-        });
+        update_unsent(platform_sent);
       });
     };
 
-    var changMode = function changeMode(mailBody,mailFrom,mailToList,mailCcList,mailSubject){
-      var mailTo = mailHeader(mailToList);
-      var mailCc = mailHeader(mailCcList);
-      mailFrom = String(mailFrom).split("@")[0];
-      __elem.base_label.html('From :'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailFrom +'<br>' + 'To :'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailTo +'<br>' + 'Cc :' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + '&nbsp;' + '&nbsp;' + '&nbsp;' + mailCc + '<br>' + 'Subject :' + '&nbsp;' + '&nbsp;'+ '&nbsp;' + mailSubject);
-      __elem.base_show.html(mailBody);
-      __elem.base_modal.modal('show');
-    }
+    var update_unsent = function(_platform_sent) {
+      __Platform.get_manage_platform(function(err, platforms) {
+        var unsent_platforms = [];
+        for (var i = platforms.length - 1; i >= 0; i--) {
+          if (-1 == _platform_sent.indexOf(platforms[i])) {
+            unsent_platforms.push(platforms[i]);
+          }
+        };
+        for (var i = unsent_platforms.length - 1; i >= 0; i--) {
+          elem.unsent_dom.append(
+            $('<li class="unsent_list_item list-group-item"></li>').append(
+              $('<span class="item_name"></span>').html(unsent_platforms[i].name|| ''),
+              $('<span class="item_prime"></span>').html(unsent_platforms[i].prime),
+              $('<span class="item_rel"></span>').html(unsent_platforms[i].rel || ''),
+              $('<span class="item_domain"></span>').html(unsent_platforms[i].domain.toUpperCase() || '')
+            )                
+          ).addClass('list-group'); 
+        };
 
-    var mailHeader =  function mailHeader(mailItemList)
-    { 
-      mailItemList = mailItemList + ',';
-      var mailItem_list = String(mailItemList).split(',');
-      var mailItem = '';
-      for(var i=0;i<mailItem_list.length-1;i++) 
-          mailItem = mailItem + mailItem_list[i].split("@")[0] + "&nbsp,&nbsp";
-      var m = mailItem.length - 6 ;
-      mailItem = mailItem.substring(0,m);
-      return mailItem;
-    }
+      });
+    };
 
-  });
+    this.update = function(_date) {
+      var date = _date;
+      if (!date) {
+        date = new Date().format();
+      }
+      update_received(date);
+    };
+    var show_mail = function(_id) {
+      elem.base_show.html('');
+      __Mail.get_by_id(_id, function(err, mail) {
+        elem.base_show.html(mail.mail_body);
+        elem.base_modal.modal('show');
+      });
+    };
+  })();
 });

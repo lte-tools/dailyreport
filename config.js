@@ -3,5 +3,5 @@ exports.db = {
 };
 
 exports.episode_api = {
-  url: 'http://127.0.0.1:6677'
+  url: 'http://172.24.186.191:8605'
 }
