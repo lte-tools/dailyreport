@@ -7,7 +7,7 @@ require(['requirejs.config'] , function() {
             base_dom: $('#div_received_list'),
             add_dom: $('#div_add_more'),
             unsent_dom: $('#div_unsent_list'),
-            date1_dom: $('#datepicker1'),
+            date_dom: $('#datepicker'),
 	          base_show:$('#email'),
             base_modal: $('#myModal'),
             base_label: $('#myModalLabel')

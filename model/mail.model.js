@@ -3,7 +3,6 @@ var connection = require('./db.model').connection
   , mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  _id: mongoose.Schema.ObjectId,
   mail_header: {
     from: String,
     to: [String],
@@ -141,7 +140,7 @@ exports.send = function(req, res) {
 
   sendmail(mail_option, function(err) {
     if (err) {
-      res.send(JSON.stringify({result: 'error', data: err}));
+      res.send(JSON.stringify({result: 'error', data: err.toString()}));
       return;
     }
     var mail = new Mail({
@@ -162,7 +161,7 @@ exports.send = function(req, res) {
     });
     mail.save(function(err, m, n) {
       if (err) {
-        res.send(JSON.stringify({result: 'error', data: err}));
+        res.send(JSON.stringify({result: 'error', data: err.toString()}));
         return;
       }
       res.send(JSON.stringify({result: 'ok'}));

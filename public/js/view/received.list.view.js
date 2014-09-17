@@ -2,12 +2,21 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
   return new (function(){
     var elem;
     this.init = function(opt) {
+      var self = this;
       elem = opt.elem;
+      elem.date_dom.val((new Date()).format()).datepicker({
+        format: 'yyyy-mm-dd',
+        autoClose: true
+      }).on('changeDate', function() {
+        self.update(this.value);
+      })
       this.update();
     }
 
     var update_received = function(_date) {
+
       __Mail.get_received_list(_date, function(err, mails) {
+        elem.base_dom.html('');
         var platform_sent = [];
         for (var i = mails.length - 1; i >= 0; i--) {
           (function(mail) {
@@ -34,10 +43,11 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
     };
 
     var update_unsent = function(_platform_sent) {
+      elem.unsent_dom.html('');
       __Platform.get_manage_platform(function(err, platforms) {
         var unsent_platforms = [];
         for (var i = platforms.length - 1; i >= 0; i--) {
-          if (-1 == _platform_sent.indexOf(platforms[i])) {
+          if (-1 == _platform_sent.indexOf(platforms[i].name)) {
             unsent_platforms.push(platforms[i]);
           }
         };
