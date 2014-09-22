@@ -1,7 +1,11 @@
-var user = require('../model/auth.model.js'),
-  mongoose = require('mongoose');
+var 
+  user,
+  config = require('../config'),
+  mongoose = require('mongoose'),
+  Conn = require('../model/db.model'),
+  conn_orig = Conn.connection;
 
-exports.test_get_user = function(test) {
+module.exports.test_get_user = function(test) {
   user.get_user('t@t.c', function(err, doc) {
     test.ifError(err);
     if (!doc) {
@@ -27,12 +31,24 @@ exports.test_get_user = function(test) {
   });
 };
 
-exports.tearDown = function(done){
-  mongoose.disconnect(function(err){
-    if(err) {
-      console.log(err);
-    }
-    console.log('mongoose is disconnected');
-  });
+module.exports.setUp = function (done) {
+  Conn.connection = mongoose.createConnection(config.db.url);
+  user = require('../model/auth.model'),
   done();
+};
+
+module.exports.tearDown = function(done){
+  /*
+  Conn.connection.close();
+  Conn.connection = conn_orig;
+  done();
+  */
+  Conn.connection.close(function() {
+    mongoose.disconnect(function(err){
+      if(err) {
+        console.log(err);
+      }
+      done();
+    });
+  });
 };

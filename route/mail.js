@@ -1,14 +1,50 @@
 'use strict';
-var express = require('express'),
+var
+  express = require('express'),
   router = express.Router(),
   mail = require('../model/mail.model');
 
 
-router.post('/send', mail.send);
+router.post('*', function (req, res, next) {
+  if (!req.session.user) {
+    res.send(JSON.stringify({result: 'error', data: 'please login first'}));
+  } else {
+    next();
+  }
+});
+
+router.post('/send', function (req, res) {
+  var
+    mail_option = {
+      from: req.session.user.email,
+      to: req.param('to'),
+      cc: req.param('cc'),
+      subject: req.param('subject'),
+      html: req.param('html')
+    },
+    mail_info = {
+      release: req.param('release') || '',
+      domain: req.param('domain') || '',
+      for_date: new Date(req.param('for_date') || Date()),
+      create_date: new Date(),
+      platforms: req.param('platforms') || []
+    };
+  mail.send(mail_option, mail_info, function (err) {
+    if (err) {
+      res.send(JSON.stringify({result: 'error', data: String(err)}));
+      return;
+    }
+    res.send(JSON.stringify({result: 'ok'}));
+  });
+});
+
 router.post('/get_last', mail.get_last);
+
 router.post('/get_sent_list', mail.get_sent_list);
+
 router.post('/get_received_list', function (req, res) {
-  var user = req.session.user,
+  var
+    user = req.session.user,
     date = req.param('date');
   mail.get_received_list(user, date, function (err, mails) {
     if (err) {
@@ -17,6 +53,7 @@ router.post('/get_received_list', function (req, res) {
     res.send(JSON.stringify({result: 'ok', data: mails}));
   });
 });
+
 router.post('/get_by_id', function (req, res) {
   var id = req.param('id');
   mail.get_by_id(id, function (err, mail) {
