@@ -8,9 +8,22 @@ gulp.task('default', function() {
   gulp.src(['./model/*.js', './route/*.js'])
     .pipe(jslint({
       node: true,
-      indent: 2
+      indent: 2,
+      unparam: false
     }))
     .on('error', function(error) {
       console.error(String(error));
-    })
+    });
+  gulp.src(['./public/js/*.js', './public/js/**/*.js', '!./public/js/bootstrap-datepicker.js', '!./public/js/summernote.js'])
+    .pipe(jslint({
+      indent: 2,
+      unparam: true,
+      browser: true,
+      vars: true,
+      nomen: true,
+      predef: ['define', 'require', '$', 'alert']
+    }))
+    .on('error', function(error) {
+      console.error(String(error));
+    });
 })

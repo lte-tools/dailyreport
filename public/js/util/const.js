@@ -1,6 +1,9 @@
 
-define(function() {
+define(function () {
+  'use strict';
   return {
-    blank_function: function(){},
+    blank_function: function () {
+      return;
+    }
   };
 });

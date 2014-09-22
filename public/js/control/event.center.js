@@ -1,16 +1,18 @@
-define([], function() {
-  return new (function() {
-    var __l = {};
-    this.register = function(_name, _instance) {
-      __l[_name] = {};
-      __l[_name].instant =  _instance;
+define([], function () {
+  'use strict';
+  var EC = function () {
+    var l = {};
+    this.register = function (name, instance) {
+      l[name] = {};
+      l[name].instant =  instance;
     };
-    this.on = function(_name, _event, _event_fun) {
-      __l[_name][_event] = _event_fun;
+    this.on = function (name, event, event_fun) {
+      l[name][event] = event_fun;
     };
-    this.trigger = function(_name, _event, para) {
-      return __l[_name][_event].call(__l[_name].instant, para);
+    this.trigger = function (name, event, para) {
+      return l[name][event].call(l[name].instant, para);
     };
 
-  });
+  };
+  return (new EC());
 });
