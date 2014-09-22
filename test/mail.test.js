@@ -5,9 +5,8 @@ var
   mail,
   mongoose = require('mongoose'),
   Conn = require('../model/db.model'),
-  conn_orig = Conn.connection;
+  conn_orig = Conn.connection,
 
-var 
   mail_option = {
     from: 'test@node.com',
     to: 'to@node.com; to2@node.com',
@@ -32,12 +31,6 @@ module.exports.setUp = function (done) {
 };
 
 module.exports.tearDown = function (done) {
-  /*
-  sendmail.sendmail = sendmail_orig;
-  Conn.connection.close();
-  Conn.connection = conn_orig;
-  done();
-*/
   Conn.connection.close(function() {
     mongoose.disconnect(function(err){
       if (err) {

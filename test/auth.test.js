@@ -38,11 +38,6 @@ module.exports.setUp = function (done) {
 };
 
 module.exports.tearDown = function(done){
-  /*
-  Conn.connection.close();
-  Conn.connection = conn_orig;
-  done();
-  */
   Conn.connection.close(function() {
     mongoose.disconnect(function(err){
       if(err) {
