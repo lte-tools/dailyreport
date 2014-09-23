@@ -52,28 +52,28 @@ html body section#received_list .received_list_item{
 }
 html body section#received_list .received_list_item .item_platform{
   display: inline-block;
-  width: 27%;
+  width: 20%;
 }
 html body section#received_list .received_list_item .item_from{
   display: inline-block;
   width: 15%;
 }
 html body section#received_list .received_list_item .item_release{
-  display:inline-block;
-  width:6%;
+  display: inline-block;
+  width: 6%;
 }
 html body section#received_list .received_list_item .item_domain{
-  display:inline-block;
-  width:6%;
+  display: inline-block;
+  width: 6%;
 }
 html body section#received_list .received_list_item .item_subject{
   display: inline-block;
-  width: 45%; 
+  width: 47%; 
   text-align: left;
 }
 html body section#received_list .received_list_item .item_opt{
   display: inline-block;
-  width: 1%;
+  width: 5%;
 }
 html body section#sent_list .sent_list_item .item_to {
   display: inline-block;
