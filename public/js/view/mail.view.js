@@ -121,7 +121,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
           message: '<p>Find an unsent mail, open or delete it?</p>',
           title: 'Find unsent mail',
           buttons: {
-            open: {
+            'open': {
               label: 'Open',
               className: 'btn-default',
               callback: function () {
@@ -129,7 +129,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
                 load_unsent_data(JSON.parse(mail));
               }
             },
-            delete: {
+            'delete': {
               label: 'Delete',
               className: 'btn-danger',
               callback: function () {
@@ -138,7 +138,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
 
               }
             },
-            later: {
+            'later': {
               label: 'Ask me later',
               className: 'btn-default',
               callback: function () {
