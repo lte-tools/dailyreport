@@ -56,8 +56,18 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
         };
         for (i = mails.length - 1; i >= 0; i -= 1) {
           platform_sent = platform_sent.concat(mails[i].mail_info.platforms);
+          var pjson = JSON.stringify(mails[i].mail_info.platforms);
+          var plist = pjson.substring(1, pjson.length-1).split(',');
+          var pshow = '';
+          for(var j=0; j<plist.length ; j++){
+            if(j>0){
+              pshow += '<br />';
+            }
+            pshow += plist[j].substring(1, plist[j].length-1);
+          }
           elem.base_dom.append(
             $('<li class="received_list_item list-group-item"></li>').append(
+              $('<span class="item_platform"></span>').html(pshow|| ''),
               $('<span class="item_from"></span>').html(mails[i].mail_header.from.split("@")[0]),
               $('<span class="item_release"></span>').html(mails[i].mail_info.release || ''),
               $('<span class="item_domain"></span>').html(mails[i].mail_info.domain || ''),

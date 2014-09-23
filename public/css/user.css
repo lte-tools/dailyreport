@@ -50,30 +50,30 @@ html body section#received_list .received_list_item{
   list-style: none;
   text-align: left; 
 }
+html body section#received_list .received_list_item .item_platform{
+  display: inline-block;
+  width: 27%;
+}
 html body section#received_list .received_list_item .item_from{
   display: inline-block;
-  width: 13%;
-}
-html body section#received_list .received_list_item .item_for_date{
-  display: inline-block;
-  width:11%;
+  width: 15%;
 }
 html body section#received_list .received_list_item .item_release{
   display:inline-block;
-  width:8%;
+  width:6%;
 }
 html body section#received_list .received_list_item .item_domain{
   display:inline-block;
-  width:8%;
-}
-html body section#received_list .received_list_item .item_platform{
-  display: inline-block;
-  width: 17%;
+  width:6%;
 }
 html body section#received_list .received_list_item .item_subject{
   display: inline-block;
-  width: 40%; 
-  text-align: center;
+  width: 45%; 
+  text-align: left;
+}
+html body section#received_list .received_list_item .item_opt{
+  display: inline-block;
+  width: 1%;
 }
 html body section#sent_list .sent_list_item .item_to {
   display: inline-block;
