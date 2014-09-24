@@ -44,6 +44,16 @@ module.exports.tearDown = function (done) {
 module.exports.test_send_mail = function (test) {
   mail.send(mail_option, mail_info, function (err, mail_saved) {
     test.ifError(err);
-    test.done();
+    var 
+      mail_id = mail_saved._id;
+
+    mail.get_by_id(mail_id, function(err, r_mail) {
+      test.ifError(err);
+      test.equal(r_mail.mail_info.release, 'LR14');
+      test.equal(r_mail.mail_info.domain, 'KPI');
+      test.equal(r_mail.mail_info.for_date, String(new Date('2014-09-09')));
+      test.equal(r_mail.mail_info.platforms.length, 2) ;
+      test.done();
+    });
   });
 };

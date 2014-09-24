@@ -23,7 +23,7 @@ var
   Mail = connection.model('mails', schema);
 
 exports.get_by_id = function (id, next) {
-  Mail.findOne({'_id': id}, function (err, mail) {
+  Mail.findById(id, function (err, mail) {
     next(err, mail);
   });
 };
