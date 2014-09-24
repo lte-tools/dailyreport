@@ -53,7 +53,15 @@ module.exports.test_send_mail = function (test) {
       test.equal(r_mail.mail_info.domain, 'KPI');
       test.equal(r_mail.mail_info.for_date, String(new Date('2014-09-09')));
       test.equal(r_mail.mail_info.platforms.length, 2) ;
-      test.done();
+      r_mail.remove(function(err, d_mail) {
+        test.ifError(err);
+        test.equal(d_mail._id, r_mail._id);
+        mail.get_by_id(d_mail._id, function(err, null_mail) {
+          test.ifError(err);
+          test.equal(null_mail, null);
+          test.done();
+        });
+      });
     });
   });
 };
