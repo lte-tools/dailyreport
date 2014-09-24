@@ -1,9 +1,10 @@
-define(['control/event.center', 'model/mail.model', 'util/date.format'], function (__Event, __Mail) {
+define(['control/event.center', 'model/mail.model', 'util/date.format'], function (EC, __Mail) {
   'use strict';
   var Sent_List_View = function () {
     var __elem;
     var __option;
 
+    /*
     var show_mail = function (_id) {
       __elem.base_show.html('');
       __Mail.get_by_id(_id, function (err, mail) {
@@ -11,6 +12,7 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
         __elem.base_modal.modal('show');
       });
     };
+    */
 
     var update = function () {
       __Mail.get_sent_list(function (err, mails) {
@@ -22,7 +24,7 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
         __elem.base_dom.html('');
         var show_click_fun = function (mail) {
           return function () {
-            show_mail(mail._id);
+            EC.trigger('mail.show', 'show', mail._id);
           };
         };
         for (i = mails.length - 1; i >= 0; i -= 1) {

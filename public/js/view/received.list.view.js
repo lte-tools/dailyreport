@@ -1,4 +1,4 @@
-define(['control/event.center', 'model/mail.model', 'model/platform.model', 'util/date.format'], function (g_Event, g_Mail, g_Platform) {
+define(['control/event.center', 'model/mail.model', 'model/platform.model', 'util/date.format'], function (EC, g_Mail, g_Platform) {
   'use strict';
   var Recevied_List_View = function () {
     var elem;
@@ -14,6 +14,7 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
       this.update();
     };
 
+    /*
     var show_mail = function (id) {
       elem.base_show.html('');
       g_Mail.get_by_id(id, function (err, mail) {
@@ -21,6 +22,7 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
         elem.base_modal.modal('show');
       });
     };
+    */
 
     var update_unsent = function (_platform_sent) {
       elem.unsent_dom.html('');
@@ -50,7 +52,7 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
         var platform_sent = [];
         var show_click_fun = function (mail) {
           return function () {
-            show_mail(mail._id);
+            EC.trigger('mail.show', 'show', mail._id);
           };
         };
         var i;

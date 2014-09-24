@@ -2,7 +2,12 @@ require(['requirejs.config'], function () {
   'use strict';
   require(['jquery', 'bootstrap', 'cookie', 'datepicker'], function ($) {
     $(function () {
-      require(['view/received.list.view'], function (Received_List) {
+      require(['view/received.list.view', 'view/mail.show.view'], function (Received_List, Mail_Show) {
+        Mail_Show.init({
+          elem: {
+            base: $('#modal-show-mail')
+          }
+        });
         Received_List.init({
           elem: {
             base_dom: $('#div_received_list'),

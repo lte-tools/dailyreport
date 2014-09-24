@@ -131,3 +131,23 @@ html body section#unsent_list .unsent_list_item .item_subject {
 html body section #div_add_more .label-info{
   cursor: pointer;
 }
+html body #modal-show-mail .modal-dialog {
+  width: 90%;
+}
+html body #modal-show-mail .modal-body {
+  background-color: #efefef;
+  padding-left: .5em;
+  padding-right: .5em;
+  padding-bottom: .5em;
+}
+html body #modal-show-mail .modal-body p span.item {
+  display: inline-block;
+  width: 4em;
+
+}
+html body #modal-show-mail .modal-body > div {
+  padding: 1em;
+  background-color: #fff;
+  overflow: auto;
+}
+
