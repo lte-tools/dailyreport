@@ -42,14 +42,18 @@
           <td class="td_label"><label for="">Subject:</label></td>
           <td class="td_input">
             <select name="" id="select_release" class="form-control input-sm">
+              <option value="Release">Release</option>
+              <option value="LR13">LR13</option>
               <option value="LR14">LR14</option>
               <option value="LR15">LR15</option>
-              <option value="LR13">LR13</option>
             </select>
             <select name="" id="select_domain" class="form-control input-sm">
+              <option value="Domain">Domain</option>
               <option value="AUTO">AUTO</option>
               <option value="DCI">DCI</option>
               <option value="DECP">DECP</option>
+              <option value="END">END</option>
+              <option value="FAD">FAD</option>
               <option value="IOT">IOT</option>
               <option value="KPI">KPI</option>
               <option value="LOAD">LOAD</option>
@@ -75,6 +79,22 @@
       </div>
     </div>
   </section>
+   <div class="modal fade" id="send_tips" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: center;">
+  <div class="modal-dialog" id="modal-dialog" style="display: inline-block; width: auto; min-width:500px;">
+    <div class="modal-content" style="text-align: left;">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h4 class="modal-title" id="myModalLabel">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p id="tip_context">Release, domain and subject should not be empty. Please check !</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 <script data-main="/js/editor.main" src='//172.24.186.245/jslib/requirejs/require-2.1.10.min.js'>

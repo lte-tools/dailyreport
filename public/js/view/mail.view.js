@@ -172,15 +172,20 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
     };
     var send_mail = function () {
       var mail = get_mail_info();
-      g_Mail.save_unsent_mail(JSON.stringify(mail));
-      g_Mail.send(mail, function (err) {
-        if (err) {
-          alert(err);
-          return;
-        }
-        g_Mail.remove_unsent_mail();
-        alert('ok');
-      }, this);
+      if (mail.subject !== "" && mail.release !== "Release" && mail.domain !== "Domain") {
+        g_Mail.save_unsent_mail(JSON.stringify(mail));
+        g_Mail.send(mail, function (err) {
+          if (err) {
+            alert(err);
+            return;
+          }
+          g_Mail.remove_unsent_mail();
+          alert('ok');
+        }, this);
+
+      } else {
+        $(document).find('#send_tips').modal('show');
+      }
     };
 
     this.init = function (opt) {
