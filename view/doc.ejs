@@ -21,30 +21,43 @@
   <div class="bs-docs-header" id="header">
       <div class="container">
         <h1>Daily Report</h1>
-        <p>A Quick, Easy, Convenient and Advanced report system.</p>
+        <p>A easy, quick, reliable and deep integration report system.</p>
         </div>
     </div>
   <section>
-    <h1 class="page-header">Login</h1>
-    <p class="lead"> The system may automatically get your account without any of your input </p>
-    <h3> If you have a <em>Tools Account</em> </h3>
-    <p>If you ever use any tool of <em>Tools Team</em> (like Patch System), you may remebered by tools SSO service and login this system automatically without your account and paasword. </p>
-    <h3>If not</h3>
-    <p>System will lead you to SSO system to sign up/in and Tools server will remeber in future, that means you need NOT sign in again to use any tool powered by <em>Tools Team</em>.</p>
-
-
-    <h1 class="page-header">Create Report</h1>
-    <p class="lead"> We provide some different way for you to create your report</p>
-    <h3>Create by default template</h3>
-    <p>After you click 'Create a Daily Report using default template', system will automatically create a default template for you to edit. Also, system will guess all of your related platform from <em>Episode API</em> and prepare them in the report editor. This is convenient for the user who using this system first time.</p>
-    <h3>Create by last report</h3>
-    <p>After you click 'Create a Daily Report using last report', system will automatically get your last report, and create a new report with same content prepared of the last report (expect the date). This is convenient for the user who already used this system before.</p>
-
-    <h1 class="page-header">Safe Mailer</h1>
-    <p class="lead">Mail content will never lost when using this system</p>
-    <h3>Send mail failed</h3>
-    <p>When finish your report, after click 'Send', unfortuantly you recieve a alert with message 'send failed'. You may have to leave the page but you must don't want to lost your mail content you already type. Don't worry, the system will remember all your input when 'send failed' occured. </p>
-    <p>Just refresh the page or enter the editor page again, system will ask you 'find a unsent mail, open it or delete it?'. You can choose 'open', 'delete' or 'ask me later', ensure all of your input are safe.</p>
+    <h1 class="page-header">Introduction for <i>Daily Report</i></h1>
+    <p class="lead">Please visit <a href="http://isempty.com/tpc/report">http://isempty.com/tpc/report</a></p>
+   
+    <h1 class="page-header">Release Note</h1>
+    <h3 class="page-header">Release 1.5.2 <small>2014.09.24</small></h3>
+    <ul>
+      <li>Add 'to', 'cc', 'subject' in 'show mail window'.</li>
+      <li>Correct icon which use to close from '?' to 'x'.</li>
+      <li>Mail cannot be sent if subject is empty.</li>
+      <li>Mail subject left aligned in mail list.</li>
+      <li>Add platform name in manager's recieved list.</li>
+      <li>Correct the slow display when view mail details in manager recieved list.</li>
+    </ul>
+    <h3 class="page-header">Release 1.5.1 <small>2014.09.22</small></h3>
+    <ul>
+      <li>Correct the issue when manager change search date, received list doesn't change</li>
+      <li>Manager could be multi-domain primer</li>
+    </ul>
+    <h3 class="page-header">Release 1.5.0 <small>2014.09.18</small></h3>
+    <ul>
+      <li>Correct the slow display for sent list.</li>
+      <li>Correct the slow display for recieved list.</li>
+      <li>Mail show modal shows in center position of browser instead of a fixed position.</li>
+      <li>In user page, sent list remove 'send to address' column.</li>
+      <li>Change email to short name in recieved list in manager page.</li>
+      <li>Use 'Email' instead of 'Nick Name' to indentify users.</li>
+    </ul>
+    <h3 class="page-header">Release 1.4.0 <small>2014.09.10</small></h3>
+    <ul>
+      <li>Manager can search sent and unsent mail by select a specified date.</li>
+      <li>Add manager page, which 2 sections, recieved mail list and unsent platforms list.</li>
+      <li>User and manager can display the detail of mail in sent and recieved mail list.</li>
+    </ul>
   </section>
 </body>
 </html>
