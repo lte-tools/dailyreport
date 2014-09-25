@@ -134,20 +134,31 @@ html body section #div_add_more .label-info{
 html body #modal-show-mail .modal-dialog {
   width: 90%;
 }
+
 html body #modal-show-mail .modal-body {
   background-color: #efefef;
-  padding-left: .5em;
-  padding-right: .5em;
-  padding-bottom: .5em;
+  padding: .5em;
+  width: 100%;
+  overflow: auto;
 }
-html body #modal-show-mail .modal-body p span.item {
+html body #modal-show-mail .modal-body > p > span {
   display: inline-block;
-  width: 4em;
-
+  font-size: .8em;
 }
-html body #modal-show-mail .modal-body > div {
+html body #modal-show-mail .modal-body > p > span.item {
+  font-weight: bold;
+  width: 4em;
+}
+html body #modal-show-mail .modal-body .mail-body  {
+  display: block;
+  position: relative;
   padding: 1em;
   background-color: #fff;
-  overflow: auto;
+  margin: 0;
+  width: auto;
+  display: inline-block;
+  box-shadow: 1px 1px 5px 0px #aaa inset;
+  margin-right: .5em;
+  min-width: 96%;
 }
 

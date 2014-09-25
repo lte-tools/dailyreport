@@ -13,6 +13,20 @@ define(['model/mail.model', 'control/event.center'], function (g_Mail, EC) {
             $('<p></p>').html('Loading...')
           );
       });
+      var resize = function () {
+        var content_dom = elem.base.find('.modal-content');
+        content_dom.outerHeight($(window).height() * 0.9);
+        content_dom.find('.modal-body').outerHeight(
+          content_dom.innerHeight() - content_dom.find('.modal-header').outerHeight() - content_dom.find('.modal-footer').outerHeight()
+        );
+      };
+
+      elem.base.on('shown.bs.modal', function() {
+        resize();
+      });
+      $(window).resize(function () {
+        resize();
+      });
       elem.base.modal('show');
       g_Mail.get_by_id(mail_id, function (err, mail) {
         modal_body.html('');
@@ -30,7 +44,7 @@ define(['model/mail.model', 'control/event.center'], function (g_Mail, EC) {
             $('<span class="item"></span>').html('Cc: '),
             $('<span></span>').html(mail.mail_header.cc.join('; ').replace(/@alcatel-[a-zA-Z]*\.com(\.cn)?/ig, ''))
           ),
-          $('<div></div>').html(mail.mail_body)
+          $('<div class="mail-body"></div>').html(mail.mail_body)
         );
       });
     };
