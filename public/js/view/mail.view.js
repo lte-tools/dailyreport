@@ -198,7 +198,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
         if (mail.subject === "") {
           $(document).find('#send_title').html('Warning');
           $(document).find('#tip_context').html('Do you want to send this message without a subject?');
-          $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-primary").attr("type", "button").attr("id", "send_anyway").html('Send Anyway').unbind().bind("click", "anyway", submit_mail)).append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Don\'t Send'));
+          $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("id", "send_anyway").html('Send Anyway').unbind().bind("click", "anyway", submit_mail)).append($('<button></button>').addClass("btn btn-primary").attr("type", "button").attr("data-dismiss", "modal").html('Don\'t Send'));
           $(document).find('#send_tips').modal('show');
         } else {
           submit_mail('normal');
