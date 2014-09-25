@@ -170,20 +170,43 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
         platforms: g_Event.trigger('select.platform', 'get')
       };
     };
-    var send_mail = function () {
-      var mail = get_mail_info();
-      if (mail.subject !== "" && mail.release !== "Release" && mail.domain !== "Domain") {
+    var submit_mail = function (from) {
+        if (from.data === 'anyway') {
+          $(document).find('#send_title').html('Message');
+        }
+        var mail = get_mail_info();
+        $(document).find('#tip_context').html('Sending process...');
+        $(document).find('#tip_button').html('');
+        $(document).find('#send_tips').modal('show');
         g_Mail.save_unsent_mail(JSON.stringify(mail));
         g_Mail.send(mail, function (err) {
           if (err) {
-            alert(err);
+            $(document).find('#send_title').html('Warning');
+            $(document).find('#tip_context').html(err);
+            $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Close'));
             return;
           }
           g_Mail.remove_unsent_mail();
-          alert('ok');
+          $(document).find('#send_title').html('Message');
+          $(document).find('#tip_context').html('Send OK');
+          $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Close'));
         }, this);
-
+      };
+    var send_mail = function () {
+      var mail = get_mail_info();
+      if (mail.release !== "Release" && mail.domain !== "Domain") {
+        if (mail.subject === "") {
+          $(document).find('#send_title').html('Warning');
+          $(document).find('#tip_context').html('Do you want to send this message without a subject?');
+          $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-primary").attr("type", "button").attr("id", "send_anyway").html('Send Anyway').unbind().bind("click", "anyway", submit_mail)).append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Don\'t Send'));
+          $(document).find('#send_tips').modal('show');
+        } else {
+          submit_mail('normal');
+        }
       } else {
+        $(document).find('#send_title').html('Warning');
+        $(document).find('#tip_context').html('Release and domain should not be empty. Please check !');
+        $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Close'));
         $(document).find('#send_tips').modal('show');
       }
     };
