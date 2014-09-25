@@ -36,7 +36,6 @@ router.get(/\/editor([a-zA-Z\/]*)/, function (req, res) {
 
 router.get('/', function (req, res) {
   var user = req.session.user;
-  console.log(user);
   if (user.identity === 'manager' || user.identity === 'primer') {
     req.session.auth = user.release;
     res.render('manager', {user: user});
