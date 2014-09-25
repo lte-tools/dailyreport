@@ -15,7 +15,7 @@ define(['model/mail.model', 'control/event.center'], function (g_Mail, EC) {
       });
       var resize = function () {
         var content_dom = elem.base.find('.modal-content');
-        content_dom.outerHeight($(window).height() * 0.9);
+        content_dom.outerHeight($(window).height() * 0.85);
         content_dom.find('.modal-body').outerHeight(
           content_dom.innerHeight() - content_dom.find('.modal-header').outerHeight() - content_dom.find('.modal-footer').outerHeight()
         );

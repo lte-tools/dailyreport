@@ -160,5 +160,6 @@ html body #modal-show-mail .modal-body .mail-body  {
   box-shadow: 1px 1px 5px 0px #aaa inset;
   margin-right: .5em;
   min-width: 96%;
+  min-height: 20em;
 }
 
