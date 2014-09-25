@@ -21,7 +21,7 @@ define(['model/mail.model', 'control/event.center'], function (g_Mail, EC) {
         );
       };
 
-      elem.base.on('shown.bs.modal', function() {
+      elem.base.on('shown.bs.modal', function () {
         resize();
       });
       $(window).resize(function () {
