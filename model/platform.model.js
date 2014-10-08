@@ -33,7 +33,6 @@ exports.get_all_name_by_email = function (req, res) {
         data: error
       }));
     } else {
-      console.log(body);
       res.send(JSON.stringify({
         result: 'ok',
         data: JSON.parse(body).data
