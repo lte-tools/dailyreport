@@ -26,22 +26,26 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
       g_Event.trigger('select.platform', 'add', mail.platforms);
     };
 
-    var load_default = function () {
-      g_Platform.get_all_name_by_email(function (error, platforms) {
-        if (error) {
-          return;
-        }
-        set_data({
-          to: 'lte-tdd-st@lists.alcatel.de,',
-          cc: '',
-          subject: '',
-          html: '',
-          platforms: platforms,
-          release: '',
-          domain: ''
-        });
-      }, this);
+    var mail_array = function (error, platforms) {
+      if (error) {
+        return;
+      }
+      set_data({
+        to: 'lte-tdd-st@lists.alcatel.de,',
+        cc: '',
+        subject: '',
+        html: '',
+        platforms: platforms,
+        release: '',
+        domain: ''
+      });
+    };
 
+    var load_default = function () {
+      g_Platform.get_all_name_by_email('CK-BCEM', mail_array, this);
+      g_Platform.get_all_name_by_email('CK-SOC', mail_array, this);
+      g_Platform.get_all_name_by_email('HT-BCEM', mail_array, this);
+      g_Platform.get_all_name_by_email('HT-SOC', mail_array, this);
     };
 
     var load_last = function () {

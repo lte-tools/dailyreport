@@ -4,8 +4,8 @@ define(['util/conn'], function (Conn) {
     return;
   };
 
-  Platform.get_all_name = function (anddothis, object) {
-    Conn.send_to_server('/platform/get_all_name/', {
+  Platform.get_all_name = function (dbobject, anddothis, object) {
+    Conn.send_to_server('/platform/get_all_name/' + dbobject, {
     }, function (r) {
       if (r.result !== 'ok') {
         anddothis.call(object, r.data);
@@ -15,8 +15,8 @@ define(['util/conn'], function (Conn) {
     }, this);
   };
 
-  Platform.get_all_name_by_email = function (anddothis, object) {
-    Conn.send_to_server('/platform/get_all_name_by_email', {
+  Platform.get_all_name_by_email = function (dbobject, anddothis, object) {
+    Conn.send_to_server('/platform/get_all_name_by_email/' + dbobject, {
     }, function (r) {
       if (r.result !== 'ok') {
         anddothis.call(object, r.data);
@@ -26,8 +26,8 @@ define(['util/conn'], function (Conn) {
     }, this);
   };
 
-  Platform.get_all_config = function (anddothis, object) {
-    Conn.send_to_server('/platform/get_all_config', {
+  Platform.get_all_config = function (dbobject, anddothis, object) {
+    Conn.send_to_server('/platform/get_all_config/' + dbobject, {
     }, function (r) {
       if (r.result !== 'ok') {
         anddothis.call(object, r.data, r.rel);
@@ -37,8 +37,8 @@ define(['util/conn'], function (Conn) {
     }, this);
   };
 
-  Platform.get_manage_platform = function (anddothis, object) {
-    Conn.send_to_server('/platform/get_manage_platform', {
+  Platform.get_manage_platform = function (dbobject, anddothis, object) {
+    Conn.send_to_server('/platform/get_manage_platform/' + dbobject, {
     }, function (r) {
       if (r.result !== 'ok') {
         anddothis.call(object, r.data, r.rel);

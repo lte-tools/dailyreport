@@ -11,22 +11,15 @@ define(['../control/event.center', '../model/platform.model', 'model/mail.model'
       __elem.add_dom = __elem.base_dom.find('span#span_add_platform');
       __elem.select_dom = __elem.base_dom.find('select#select_add_platform');
       __elem.add_dom.click(function () {
-        __Platform.get_all_name(function (error, all_name) {
-          if (error) {
-            return;
-          }
-          __elem.select_dom.html('').append($('<option></option>'));
-          $.each(all_name, function (i, name) {
-            __elem.select_dom.append(
-              $('<option></option>')
-                .attr('value', name)
-                .html(name)
-            );
-          });
-          __elem.add_dom.hide();
-          __elem.select_dom.show();
-          __elem.select_dom.focus();
-        });
+        __elem.select_dom.html('').append($('<option></option>'));
+        self.get_platform_from('CK-BCEM');
+        self.get_platform_from('CK-SOC');
+        self.get_platform_from('HT-BCEM');
+        self.get_platform_from('HT-SOC');
+
+        __elem.add_dom.hide();
+        __elem.select_dom.show();
+        __elem.select_dom.focus();
       });
       __elem.select_dom.change(function () {
         var name = $(this).val();
@@ -55,6 +48,25 @@ define(['../control/event.center', '../model/platform.model', 'model/mail.model'
         }
       });
     };
+
+    this.get_platform_from = function (site) {
+      __Platform.get_all_name(site, function (error, all_name) {
+        if (error) {
+          return;
+        }
+        var option_group = $('<optgroup></optgroup>').attr('label', site);
+        //__elem.select_dom.append($('<optgroup></optgroup>').attr('label', site));
+        $.each(all_name, function (i, name) {
+          option_group.append(
+            $('<option></option>')
+                .attr('value', name)
+                .html(name)
+          );
+        });
+        __elem.select_dom.append(option_group);
+      }, this);
+    };
+
     this.set_data = function (platforms) {
       return;
     };

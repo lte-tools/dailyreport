@@ -13,40 +13,39 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
       });
       this.update();
     };
-
-    /*
-    var show_mail = function (id) {
-      elem.base_show.html('');
-      g_Mail.get_by_id(id, function (err, mail) {
-        elem.base_show.html(mail.mail_body);
-        elem.base_modal.modal('show');
-      });
-    };
-    */
-
-    var update_unsent = function (_platform_sent) {
-      elem.unsent_dom.html('');
-      g_Platform.get_manage_platform(function (err, platforms) {
-        var unsent_platforms = [], i;
-        for (i = platforms.length - 1; i >= 0; i -= 1) {
-          if (-1 === _platform_sent.indexOf(platforms[i].name)) {
-            unsent_platforms.push(platforms[i]);
+    var get_manage_pltfs = function (site, _platform_sent) {
+        g_Platform.get_manage_platform(site, function (err, platforms) {
+          var i;
+          var unsent_platforms = [];
+          for (i = platforms.length - 1; i >= 0; i -= 1) {
+            if (-1 === _platform_sent.indexOf(platforms[i].name)) {
+              unsent_platforms.push(platforms[i]);
+            }
           }
-        }
-        for (i = unsent_platforms.length - 1; i >= 0; i -= 1) {
-          elem.unsent_dom.append(
-            $('<li class="unsent_list_item list-group-item"></li>').append(
-              $('<span class="item_name"></span>').html(unsent_platforms[i].name || ''),
-              $('<span class="item_prime"></span>').html(unsent_platforms[i].prime),
-              $('<span class="item_rel"></span>').html(unsent_platforms[i].rel || ''),
-              $('<span class="item_domain"></span>').html(unsent_platforms[i].domain.toUpperCase() || '')
-            )
-          ).addClass('list-group');
-        }
+          for (i = unsent_platforms.length - 1; i >= 0; i -= 1) {
+            elem.unsent_dom.append(
+              $('<li class="unsent_list_item list-group-item"></li>').append(
+                $('<span class="item_name"></span>').html(unsent_platforms[i].name || ''),
+                $('<span class="item_prime"></span>').html(unsent_platforms[i].prime),
+                $('<span class="item_rel"></span>').html(unsent_platforms[i].rel || ''),
+                $('<span class="item_domain"></span>').html(unsent_platforms[i].domain.toUpperCase() || ''),
+                $('<span class="item_site"></span>').html(site || '')
+              )
+            ).addClass('list-group');
+          }
+        });
+      };
 
-      });
+    this.update_unsent = function (platform_sent) {
+      elem.unsent_dom.html('');
+      get_manage_pltfs('CK-BCEM', platform_sent);
+      get_manage_pltfs('CK-SOC', platform_sent);
+      get_manage_pltfs('HT-BCEM', platform_sent);
+      get_manage_pltfs('HT-SOC', platform_sent);
     };
-    var update_received = function (i_data) {
+
+    this.update_received = function (i_data) {
+      var _this = this;
       g_Mail.get_received_list(i_data, function (err, mails) {
         elem.base_dom.html('');
         var platform_sent = [];
@@ -72,20 +71,17 @@ define(['control/event.center', 'model/mail.model', 'model/platform.model', 'uti
             )
           ).addClass('list-group');
         }
-        update_unsent(platform_sent);
+        _this.update_unsent(platform_sent);
       });
     };
-
-
 
     this.update = function (i_data) {
       var date = i_data;
       if (!date) {
         date = new Date().format();
       }
-      update_received(date);
+      this.update_received(date);
     };
-
   };
   return new Recevied_List_View();
 });
