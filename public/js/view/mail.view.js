@@ -82,17 +82,6 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
         );
     };
 
-    var sleep = function (numberMillis, anddothis) {
-      var now = new Date();
-      var exitTime = now.getTime() + numberMillis;
-      while (true) {
-        now = new Date(); 
-        if (now.getTime() > exitTime){
-          anddothis.call();
-        }
-          
-      }
-    };
 
     var load_draft = function (mailid) {
       g_Mail.get_draft(mailid, function (error, mail) {
