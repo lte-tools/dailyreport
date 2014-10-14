@@ -222,6 +222,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
               }).done(function (r) {
                 });
             }
+            $(window).unbind('beforeunload');
             $(document).find('#send_title').html('Message');
             $(document).find('#tip_context').html('Send OK');
             $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("id", "return_homepage").html('Return Homepage').unbind().bind("click", function () {top.location='/';}));
@@ -267,7 +268,12 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
       }, this);
     };
 
+    var leave_tips = function () {
+      return 'Don\'t forget save the draft!';
+    };
+
     this.init = function (opt) {
+      $(window).bind('beforeunload',leave_tips);
       g_option = $.extend({}, g_option, opt);
       g_elem = g_option.elem;
       g_elem.mail_body_dom.summernote({height: 300});
