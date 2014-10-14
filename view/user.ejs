@@ -29,24 +29,11 @@
       </button>
       <a class="navbar-brand" href="#">Daily Report</a>
     </div>
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Sent</a></li>
-        <li><a href="#">Recieved</a></li>
         <li><a href="/doc">Documentation</a></li>
-        <!--
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Create <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Using default template</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Using last time report</a></li>
-          </ul>
-        </li>
-        -->
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><span id="welcome">Welcome <%=user.nick_name%>! Not <a href="/login?sign_method=change_user&ref=/"><%=user.nick_name%>?</a></span></li>
@@ -67,11 +54,14 @@
       </a>
     </div>
   </section>
+  <section id="draft_list" class="panel panel-default">
+    <div class="panel-heading">Draft List</div>
+    <div id="div_draft_list"></div>
+  </section>
   <section id="sent_list" class="panel panel-default">
     <div class="panel-heading">Sent List</div>
     <div id="div_sent_list"></div>
   </section>
-  
   <div class="modal fade" id="modal-show-mail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: center;">
     <div class="modal-dialog" id="modal-dialog" >
       <div class="modal-content" style="text-align: left;">
@@ -88,9 +78,21 @@
       </div>
     </div>
   </div>
-
-
-  
+  <div class="modal fade" id="user_tips" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: center;">
+  <div class="modal-dialog" id="modal-dialog" style="display: inline-block; width: auto; min-width:500px;">
+    <div class="modal-content" style="text-align: left;">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h4 class="modal-title" id="tip_title"></h4>
+      </div>
+      <div class="modal-body">
+        <p id="tip_context"></p>
+      </div>
+      <div class="modal-footer" id ="tip_button">
+      </div>
+    </div>
+  </div>
+  </div>
 </body>
 </html>
 <script data-main="/js/user.main" src='//172.24.186.245/jslib/requirejs/require-2.1.10.min.js'>

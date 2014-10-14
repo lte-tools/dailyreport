@@ -17,10 +17,31 @@ define(['util/conn'], function (Conn) {
   /*
      callback(err, data)
   */
+  Mail.save_drafts = function (mail_option, anddothis, object) {
+    Conn.send_to_server('/mail/save_drafts', mail_option, function (r){
+      if (r.result === 'ok') {
+        anddothis.call(object, 'ok', r.data);
+      } else {
+        anddothis.call(object, 'error', r.data);
+      }
+    },this);
+  };
   Mail.get_sent_list = function (anddothis, object) {
     Conn.send_to_server('/mail/get_sent_list', {}, function (r) {
       if (r.result !== 'ok') {
         anddothis.call(object, r.data, null);
+      } else {
+        anddothis.call(object, null, r.data);
+      }
+    }, this);
+  };
+
+  Mail.get_draft_list = function (anddothis, object) {
+    Conn.send_to_server('/mail/get_draft_list', {}, function (r) {
+      if (r.result !== 'ok') {
+        anddothis.call(object, r.data, null);
+      } else if (r.result === 'newid'){
+        anddothis.call(object, null, r.data);
       } else {
         anddothis.call(object, null, r.data);
       }
@@ -53,6 +74,16 @@ define(['util/conn'], function (Conn) {
 
   Mail.get_last = function (anddothis, object) {
     Conn.send_to_server('/mail/get_last', {}, function (r) {
+      if (r.result !== 'ok') {
+        anddothis.call(object, r.data, null);
+      } else {
+        anddothis.call(object, null, r.data);
+      }
+    }, this);
+  };
+
+  Mail.get_draft = function (mailid, anddothis, object) {
+    Conn.send_to_server('/mail/get_draft/' + mailid, {}, function (r) {
       if (r.result !== 'ok') {
         anddothis.call(object, r.data, null);
       } else {

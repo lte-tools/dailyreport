@@ -14,12 +14,21 @@ section#mail div#mail_header table {
   width: 100%;
 }
 section#mail div#mail_header table td.td_send {
-  width: 5em;
+  width: 7em;
+  vertical-align: top;
+}
+section#mail div#mail_header table td.td_draft {
+  width: 7em;
   vertical-align: top;
 }
 section#mail div#mail_header table td.td_send button {
-  width: 85%;
-  height: 7.7em;
+  width: 95%;
+  height: 5em;
+  font-size: .8em;
+}
+section#mail div#mail_header table td.td_draft button {
+  width: 95%;
+  height: 2.5em;
   font-size: .8em;
 }
 section#mail div#mail_header table td.td_label {

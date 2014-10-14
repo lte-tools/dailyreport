@@ -30,7 +30,7 @@
     <div id="mail_header">
       <table>
         <tr>
-          <td class="td_send" rowspan="3"><button class="btn btn-default" id="btn_mail_send">Send</button></td>
+          <td class="td_send" rowspan="2"><button class="btn btn-default" id="btn_mail_send">Send</button></td>
           <td class="td_label"><button class="btn btn-default btn-sm" for="">To:</button></td>
           <td class="td_input"><input type="text" class="form-control input-sm" id="input_mail_to" value="lte-tdd-st@lists.alcatel.de,"></td>
         </tr>
@@ -39,7 +39,8 @@
           <td class="td_input"><input type="text" class="form-control input-sm" id="input_mail_cc"></td>
         </tr>
         <tr>
-          <td class="td_label"><label for="">Subject:</label></td>
+          <td class="td_draft" rowspan="1"><button class="btn btn-primary" id="btn_save_draft">Save as Draft</button></td>
+          <td class="td_label"><button class="btn btn-default btn-sm" for="">Subject:</button></td></td>
           <td class="td_input">
             <select name="" id="select_release" class="form-control input-sm">
               <option value="Release">Release</option>
@@ -79,7 +80,7 @@
       </div>
     </div>
   </section>
-   <div class="modal fade" id="send_tips" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: center;">
+  <div class="modal fade" id="send_tips" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="text-align: center;">
   <div class="modal-dialog" id="modal-dialog" style="display: inline-block; width: auto; min-width:500px;">
     <div class="modal-content" style="text-align: left;">
       <div class="modal-header">
@@ -93,7 +94,7 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 </body>
 </html>
 <script data-main="/js/editor.main" src='//172.24.186.245/jslib/requirejs/require-2.1.10.min.js'>

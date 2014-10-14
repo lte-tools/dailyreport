@@ -11,6 +11,7 @@ require(['requirejs.config'], function () {
         Sent_List.init({
           elem: {
             base_dom: $('#div_sent_list'),
+            base_draft: $('#div_draft_list'),
             base_show: $('#email'),
             base_modal: $('#myModal'),
             base_label: $('#myModalLabel')

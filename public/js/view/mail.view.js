@@ -1,7 +1,7 @@
 define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/platform.model', '../util/date.format'], function (g_Event, g_Mail, bootbox, g_Platform) {
   'use strict';
   var Mail_View = function () {
-    var g_elem, g_option;
+    var g_elem, g_option, draftid ='',btn_draft_dom;
 
     var set_data = function (mail) {
       //to
@@ -24,6 +24,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
       domain_dom.val(mail.domain);
       //platform
       g_Event.trigger('select.platform', 'add', mail.platforms);
+
     };
 
     var mail_array = function (error, platforms) {
@@ -80,12 +81,47 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
             .html(yesterday.format())
         );
     };
+
+    var sleep = function (numberMillis, anddothis) {
+      var now = new Date();
+      var exitTime = now.getTime() + numberMillis;
+      while (true) {
+        now = new Date(); 
+        if (now.getTime() > exitTime){
+          anddothis.call();
+        }
+          
+      }
+    };
+
+    var load_draft = function (mailid) {
+      g_Mail.get_draft(mailid, function (error, mail) {
+        if (error) {
+          return;
+        }
+        draftid = mailid;
+        btn_draft_dom.removeClass('btn-primary').addClass('btn-default').html('Update the Draft');
+        set_data({
+          to: mail.mail_header.to,
+          cc: mail.mail_header.cc,
+          subject: mail.mail_header.subject,
+          html: mail.mail_body,
+          platforms: mail.mail_info.platforms,
+          release: mail.mail_info.release,
+          domain: mail.mail_info.domain
+        });
+      }, this);
+    };
+
     var load_other = function () {
       select_init();
       if (!g_option.unsent) {
-        var type = window.location.pathname.split('/').reverse()[0];
+        var type = window.location.pathname.split('/')[2];
         if (type === 'last') {
           load_last();
+        } else if (type === 'draft') {
+          draftid = window.location.pathname.split('/').reverse()[0];
+          load_draft(draftid);
         } else if (type === 'default') {
           load_default();
         }
@@ -139,7 +175,6 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
               callback: function () {
                 g_Mail.remove_unsent_mail();
                 load_other();
-
               }
             },
             'later': {
@@ -147,7 +182,6 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
               className: 'btn-default',
               callback: function () {
                 load_other();
-
               }
             }
           }
@@ -158,12 +192,11 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
     };
 
 
-
-
     var get_mail_info = function () {
       var d_header = g_elem.mail_header_dom;
       var d_body = g_elem.mail_body_dom;
       return {
+        id: draftid,
         to: d_header.find('#input_mail_to').val(),
         cc: d_header.find('#input_mail_cc').val(),
         subject: d_header.find('#input_mail_subject').val(),
@@ -189,11 +222,21 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
             $(document).find('#tip_context').html(err);
             $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Close'));
             return;
+          } else {
+            g_Mail.remove_unsent_mail();
+            if(draftid !== '') {
+              $.ajax({
+                url: '/mail/delete',
+                type: 'POST',
+                dataType: 'json',
+                data: {'draft_id' : draftid}
+              }).done(function (r) {
+                });
+            }
+            $(document).find('#send_title').html('Message');
+            $(document).find('#tip_context').html('Send OK');
+            $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("id", "return_homepage").html('Return Homepage').unbind().bind("click", function () {top.location='/';}));
           }
-          g_Mail.remove_unsent_mail();
-          $(document).find('#send_title').html('Message');
-          $(document).find('#tip_context').html('Send OK');
-          $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Close'));
         }, this);
       };
     var send_mail = function () {
@@ -215,16 +258,37 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
       }
     };
 
+    var save_drafts = function () {
+      var mail = get_mail_info();
+      $(document).find('#send_title').html('Message');
+      $(document).find('#tip_context').html('Save Draft...');
+      $(document).find('#send_tips').modal('show');
+      g_Mail.save_drafts(mail, function (err,data) {
+        if (err ==='ok') {
+          if(draftid === ''){
+            btn_draft_dom.removeClass('btn-primary').addClass('btn-default').html('Update the Draft');
+            draftid = data;
+          }
+          $(document).find('#tip_context').html('Draft Saved!');
+        } else {
+          $(document).find('#send_title').html('Warning');
+          $(document).find('#tip_context').html(data);
+        }
+        $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Close'));
+      }, this);
+    };
+
     this.init = function (opt) {
       g_option = $.extend({}, g_option, opt);
       g_elem = g_option.elem;
       g_elem.mail_body_dom.summernote({height: 300});
       g_elem.mail_header_dom.find('#btn_mail_send').click(send_mail);
+      g_elem.mail_header_dom.find('#btn_save_draft').click(save_drafts);
+      btn_draft_dom = g_elem.mail_header_dom.find('#btn_save_draft');
       g_option.unsent = false;
       load_data();
       g_Event.register('mail', this);
     };
-
   };
   return new Mail_View();
 });

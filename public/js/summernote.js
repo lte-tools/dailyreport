@@ -2815,7 +2815,7 @@
                  '</ul>';
       },
       progressbar: function (lang) {
-        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.progress.bar + '" data-event="showProgressDialog" tabindex="-1"><span class="note-current-bar">Bar</span></button>';
+        return '<button type="button" class="btn btn-default btn-sm btn-small" title="' + lang.progress.bar + '" data-event="showProgressDialog" tabindex="-1"><i class="fa fa-tasks icon-tasks"></i></button>';
 
       },
       style: function (lang) {

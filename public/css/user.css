@@ -40,7 +40,7 @@ html body section#create_report .btn .span_us {
   display: block;
   font-size: 1.3em;
 }
-html body section#sent_list .sent_list_item, #received_list .received_list_item, #unsent_list .unsent_list_item {
+html body section#sent_list .sent_list_item, #draft_list .sent_draft_item, #received_list .received_list_item, #unsent_list .unsent_list_item {
   position: relative;
   list-style: none;
   text-align: left;
@@ -75,9 +75,25 @@ html body section#received_list .received_list_item .item_opt{
   display: inline-block;
   width: 5%;
 }
-html body section#sent_list .sent_list_item .item_to {
+html body section#draft_list .sent_draft_item .item_for_date {
   display: inline-block;
-  width: 0%;
+  width: 15%;
+}
+html body section#draft_list .sent_draft_item .item_release {
+  display: inline-block;
+  width: 12%;
+}
+html body section#draft_list .sent_draft_item .item_domain {
+  display: inline-block;
+  width: 12%;
+}
+html body section#draft_list .sent_draft_item .item_platform {
+  display: inline-block;
+  width: 25%;
+}
+html body section#draft_list .sent_draft_item .item_subject {
+  display: inline-block;
+  width: 31%;
 }
 html body section#sent_list .sent_list_item .item_for_date {
   display: inline-block;
@@ -97,7 +113,7 @@ html body section#sent_list .sent_list_item .item_platform {
 }
 html body section#sent_list .sent_list_item .item_subject {
   display: inline-block;
-  width: 32%;
+  width: 31%;
 }
 html body section#unsent_list .unsent_list_item .item_email {
   display: inline-block;
@@ -162,4 +178,3 @@ html body #modal-show-mail .modal-body .mail-body  {
   min-width: 96%;
   min-height: 20em;
 }
-
