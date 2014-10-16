@@ -3,10 +3,7 @@
 
 var express = require('express'),
   router = express.Router(),
-  mail = require('../model/mail.model'),
-  login = require('./login'),
-  mongoose = require('mongoose'),
-  connection = require('../model/db.model').connection;
+  login = require('./login');
 
 
 

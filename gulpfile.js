@@ -8,8 +8,10 @@ gulp.task('default', function() {
     .pipe(nodeunit_runner());
   gulp.src(['./model/*.js', './route/*.js'])
     .pipe(jshint({
-      predef: ['define', 'require', 'module', 'exports'],
-      node: true
+      predef: ['define', 'require', 'module', 'exports', 'default'],
+      node: true,
+      quotmark: false,
+      camelcase: false
     }))
     .pipe(jshint.reporter('jshint-stylish'))
     .on('error', function(error) {
@@ -17,6 +19,10 @@ gulp.task('default', function() {
     });
   gulp.src(['./public/js/*.js', './public/js/**/*.js', '!./public/js/bootstrap-datepicker.js', '!./public/js/summernote.js'])
     .pipe(jshint({
+      predef: ['define', 'require', 'module', 'exports', '$', 'alert'],
+      quotmark: false,
+      camelcase: false,
+      freeze: false
     }))
     .pipe(jshint.reporter('jshint-stylish'))
     .on('error', function(error) {

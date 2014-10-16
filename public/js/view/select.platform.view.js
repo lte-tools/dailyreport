@@ -1,4 +1,4 @@
-define(['../control/event.center', '../model/platform.model', 'model/mail.model'], function (__Event, __Platform, __Mail) {
+define(['../control/event.center', '../model/platform.model'], function (__Event, __Platform) {
   'use strict';
   var Select_Platform_View = function () {
     var __elem;
@@ -68,7 +68,7 @@ define(['../control/event.center', '../model/platform.model', 'model/mail.model'
     };
 
     this.set_data = function (platforms) {
-      return;
+      return platforms;
     };
     var update_selected_display = function () {
       var selected_dom = __elem.base_dom.find('#platform_selected');

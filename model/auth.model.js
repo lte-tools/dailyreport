@@ -4,9 +4,9 @@ var connection = require('./db.model').connection,
 
 var Auth = connection.model('auths', new mongoose.Schema({
   email: String,
-  identity: {default: 'user', type: String},
-  release: {type: [String], default: []},
-  domain: {type: [String], default: []}
+  identity: {'default': 'user', 'type': String},
+  release: {'type': [String], 'default': []},
+  domain: {'type': [String], 'default': []}
 }));
 
 

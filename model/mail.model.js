@@ -68,6 +68,7 @@ exports.get_draft_list = function (req, res) {
     });
 };
 
+/*jshint -W024 */
 exports.get_received_list = function (user, date, next) {
   if (!user) {
     next(new Error('no user'));
@@ -92,6 +93,7 @@ exports.get_received_list = function (user, date, next) {
     }
   });
 };
+/*jshint +W024 */
 
 exports.get_last = function (req, res) {
   if (!req.session.user) {
@@ -181,7 +183,7 @@ exports.save_drafts = function (mail_option, mail_info, next) {
       }},{},function (err) {
         next(returnid, err);
       }
-    )
+    );
   } else {
     draft.save(
       function (err) {

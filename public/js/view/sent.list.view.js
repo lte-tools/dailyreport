@@ -33,7 +33,7 @@ define(['control/event.center', 'model/mail.model', 'util/date.format'], functio
       $(document).find('#tip_context').html('Are you sure to remove the draft?');
       $(document).find('#tip_button').html('').append($('<button></button>').addClass("btn btn-danger").attr("type", "button").attr("id", "del_anyway").html('Delete').unbind().bind("click", mail.data._id, draft_del)).append($('<button></button>').addClass("btn btn-default").attr("type", "button").attr("data-dismiss", "modal").html('Cancel'));
       $(document).find('#user_tips').modal('show');
-    }
+    };
 
     var create_draft_list = function (err, mails) {
       var i;

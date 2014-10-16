@@ -220,7 +220,8 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
                 dataType: 'json',
                 data: {'draft_id' : draftid}
               }).done(function (r) {
-                });
+                return r;
+              });
             }
             $(window).unbind('beforeunload');
             $(document).find('#send_title').html('Message');
