@@ -10,13 +10,11 @@ define(['../control/event.center', '../model/platform.model'], function (__Event
       __elem = __option.elem;
       __elem.add_dom = __elem.base_dom.find('span#span_add_platform');
       __elem.select_dom = __elem.base_dom.find('select#select_add_platform');
+      self.get_platform_from('CK-BCEM');
+      self.get_platform_from('CK-SOC');
+      self.get_platform_from('HT-BCEM');
+      self.get_platform_from('HT-SOC');
       __elem.add_dom.click(function () {
-        __elem.select_dom.html('').append($('<option></option>'));
-        self.get_platform_from('CK-BCEM');
-        self.get_platform_from('CK-SOC');
-        self.get_platform_from('HT-BCEM');
-        self.get_platform_from('HT-SOC');
-
         __elem.add_dom.hide();
         __elem.select_dom.show();
         __elem.select_dom.focus();

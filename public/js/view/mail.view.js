@@ -89,7 +89,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
           return;
         }
         draftid = mailid;
-        btn_draft_dom.removeClass('btn-primary').addClass('btn-default').html('Update the Draft');
+        btn_draft_dom.removeClass('btn-primary').addClass('btn-default');
         set_data({
           to: mail.mail_header.to,
           cc: mail.mail_header.cc,
@@ -257,7 +257,7 @@ define(['../control/event.center', '../model/mail.model', 'bootbox', 'model/plat
       g_Mail.save_drafts(mail, function (err,data) {
         if (err ==='ok') {
           if(draftid === ''){
-            btn_draft_dom.removeClass('btn-primary').addClass('btn-default').html('Update the Draft');
+            btn_draft_dom.removeClass('btn-primary').addClass('btn-default');
             draftid = data;
           }
           $(document).find('#tip_context').html('Draft Saved!');

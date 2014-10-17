@@ -5,15 +5,15 @@ var
   Conn = require('../model/db.model'),
   conn_orig = Conn.connection;
 
-module.exports.test_get_user = function(test) {
-  user.get_user('t@t.c', function(err, doc) {
+module.exports.test_get_user = function (test) {
+  user.get_user('t@t.c', function (err, doc) {
     test.ifError(err);
     if (!doc) {
       user.save_user({
         email: 't@t.c'
-      }, function(err, doc) {
+      }, function (err, doc) {
         test.ifError(err);
-        user.get_user('t@t.c', function(err, doc) {
+        user.get_user('t@t.c', function (err, doc) {
           test.ifError(err);
           test.equal(doc.email, 't@t.c');
           test.equal(doc.identity, 'user');
